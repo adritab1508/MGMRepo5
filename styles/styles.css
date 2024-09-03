@@ -1,0 +1,56 @@
+body, html {
+    background-color: black;
+    color: blanchedalmond;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: large;
+}
+
+.pre-interactionText{
+    width:50%;
+    text-align: center;
+    align-items: center;
+    top: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#play-button{
+    width: 5cm;
+    height:1cm;
+    font-family: 'Courier New', Courier, monospace;
+    border: 2px solid blanchedalmond;
+    background-color: black;
+    color: white;
+    transition: 0.3s ease;
+    display: none;
+}
+
+#play-button:hover{
+    background-color: maroon;
+    border: none;
+    cursor: pointer;
+}
+
+p{
+    margin: 0;
+    white-space: normal; /* Preserve white spaces */
+    overflow: hidden; /* Hide the content that hasn't been typed out yet */
+    border-right: 2px solid #fff; /* Typewriter cursor */
+    display: block;
+    width: 0;
+    opacity: 0;
+}
+p.done{
+    border-right: none;
+}
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: white }
+}

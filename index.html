@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bridge2</title>
+    <style>
+        body, html{
+            background-color: black;
+            color: #f0f0f0;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .centered-div {
+            text-align: center;
+            width: 50%;
+            max-width: 600px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .typewriter p {
+            margin: 0;
+            white-space: normal;
+            overflow: hidden;
+            display: block;
+            opacity: 0;
+            width: 100%;
+            color: white;
+            font-weight: bold;
+            padding: 20px;
+            text-align: justify;
+            font-size: 20px;
+        }
+
+        
+        #play-button {
+            display: none;
+            margin: 20px auto 0 auto; /* Center the button horizontally */
+            padding: 10px 20px;
+            background-color: black;
+            opacity: 75%;
+            color: #fff;
+            border: 2px solid white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s ease;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        #play-button:hover{
+            background-color: maroon;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="centered-div">
+        <div class="typewriter">
+            <p>Dear Reader,</p>
+            <p>Are you ready to make a decision?</p>
+        </div>
+        <button id="play-button" onclick="window.location.href='conclusion/finalchoice.html'">Next</button>
+    </div>
+<script>
+    const playButton = document.getElementById('play-button');
+        const paragraphs = document.querySelectorAll('.centered-div .typewriter p');
+        let currentParagraph = 0;
+
+        function typeWriter(element, speed = 50) {
+            let text = element.textContent;
+            element.textContent = '';
+            element.style.opacity = '1';
+
+            let i = 0;
+            let interval = setInterval(() => {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(interval);
+                    element.classList.add('done');
+                    currentParagraph++;
+                    if (currentParagraph < paragraphs.length) {
+                        setTimeout(() => typeWriter(paragraphs[currentParagraph]), 500);
+                    } else {
+                        displayButton();
+                    }
+                }
+            }, speed);
+        }
+
+        function displayButton() {
+            playButton.style.display = 'block';
+        }
+        typeWriter(paragraphs[currentParagraph]);
+</script>
+</body>
+</html>

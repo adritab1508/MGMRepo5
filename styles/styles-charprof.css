@@ -1,0 +1,123 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: url('images/mahogany.jpg') no-repeat center center/cover;
+    font-family: 'Courier New', Courier, monospace;
+    color: #fff;
+    overflow: hidden;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.typewriter {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 24px;
+    padding: 20px;
+    max-width: 50%;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid;
+    animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: white; }
+}
+
+/* Profile Cards */
+.profile {
+    position: absolute;
+    width: 15cm;
+    height: 10cm;
+    display: flex;
+    border: 2px solid black;
+    background-color: #fff;
+    padding: 10px;
+    opacity: 0;
+    transition: all 1s ease-in-out;
+}
+
+.polaroid-image {
+    width: 50%;
+    object-fit: cover;
+}
+
+.details {
+    padding-left: 10px;
+    text-align: left;
+}
+
+.minimize-button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* Minimized states */
+.minimized-top-left {
+    width: 25%;
+    height: 25%;
+    top: 0;
+    left: 0;
+    opacity: 1;
+}
+
+.minimized-top-right {
+    width: 25%;
+    height: 25%;
+    top: 0;
+    right: 0;
+    opacity: 1;
+}
+
+.minimized-bottom-left {
+    width: 25%;
+    height: 25%;
+    bottom: 0;
+    left: 0;
+    opacity: 1;
+}
+
+.minimized-bottom-right {
+    width: 25%;
+    height: 25%;
+    bottom: 0;
+    right: 0;
+    opacity: 1;
+}
+
+/* Interrogate button styles */
+.interrogate-button {
+    display: none;
+    position: absolute;
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+}

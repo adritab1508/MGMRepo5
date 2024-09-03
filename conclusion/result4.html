@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+body, html{
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('../images/lakshmiback.jpg') no-repeat center center/cover; /* Background image */
+            font-family: 'Courier New', Courier, monospace;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .centered-div {
+            text-align: center;
+            width: 50%;
+            max-width: 600px;
+        }
+
+        .typewriter p {
+            margin: 0;
+            white-space: normal;
+            overflow: hidden;
+            display: block;
+            opacity: 0;
+            width: 100%;
+            color: white;
+            font-weight: bold;
+            transition: background-color 0.15s ease-in;
+            padding: 20px;
+            text-align: justify;
+            font-size: 20px;
+        }
+
+        .overlay .typewriter p {
+            background-color: transparent; /* No background color */
+            color: white; /* White text color */
+            font-weight: bold;
+            padding: 0; /* Remove padding if needed */
+            border: none; /* No border */
+        }
+        
+        #play-button {
+            display: none;
+            margin: 20px auto 0 auto; /* Center the button horizontally */
+            padding: 10px 20px;
+            background-color: black;
+            opacity: 75%;
+            color: #fff;
+            border: 2px solid white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s ease;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        #play-button:hover{
+            background-color: maroon;
+            color: white;
+        }
+
+        /* Fullscreen video */
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none; /* Hidden until button is clicked */
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Overlay */
+        .overlay {
+            text-align: center;
+            position: fixed;
+            top: 0;
+            right: -100%; /* Hidden offscreen initially */
+            width: 50%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 20px;
+            transition: right 1s ease;
+        }
+
+        .overlay .typewriter {
+            text-align: center;
+        }
+
+        .overlay-buttons {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .overlay-buttons button {
+            margin: 5px;
+            padding: 10px 20px;
+            background-color: transparent;
+            color: #fff;
+            border: 1px solid white;
+            width: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            display: none; /* Initially hidden */
+            transition: 0.3s ease;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .overlay-buttons button:hover{
+            background-color: maroon;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="centered-div">
+        <div class="typewriter">
+            <p>At dawn, peace seems to be restored to Magdalene Grace. Along with the electricity. You tell the others about your conclusion.</p>
+        </div>
+        <button id="play-button">Next</button>
+    </div>
+
+    <div class="video-container" id="video-container">
+        <video id="myVideo" src="../videos/penshot.mp4"></video> 
+        <!-- Lakshmi Akka walks into Anika's room and finds her dead body -->
+    </div>
+
+    <div class="overlay" id="overlay">
+        <div class="typewriter">
+            <p></p>
+        </div>
+        <div class="overlay-buttons">
+            <button style="display: none;" onclick="window.location.href='a.html'">Next</button><br>
+        </div>
+    </div>
+
+    <script>
+        const playButton = document.getElementById('play-button');
+        const paragraphs = document.querySelectorAll('.centered-div .typewriter p');
+        let currentParagraph = 0;
+
+        function typeWriter(element, speed = 50) {
+            let text = element.textContent;
+            element.textContent = '';
+            element.style.opacity = '1';
+
+            let i = 0;
+            let interval = setInterval(() => {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(interval);
+                    element.classList.add('done');
+                    currentParagraph++;
+                    if (currentParagraph < paragraphs.length) {
+                        setTimeout(() => typeWriter(paragraphs[currentParagraph]), 500);
+                    } else {
+                        displayButton();
+                    }
+                }
+            }, speed);
+        }
+
+        function displayButton() {
+            playButton.style.display = 'block';
+        }
+
+        playButton.addEventListener('click', () => {
+            document.querySelector('.centered-div').style.display = 'none';
+            const videoContainer = document.getElementById('video-container');
+            videoContainer.style.display = 'block';
+            const video = document.getElementById('myVideo');
+            video.play();
+            video.onended = function() {
+                videoContainer.style.display = 'none';
+                showOverlay();
+            };
+        });
+
+        function showOverlay() {
+            const overlay = document.getElementById('overlay');
+            overlay.style.right = '0'; // Slide in the overlay
+            const overlayText = overlay.querySelector('.typewriter p');
+            typeWriterOverlay(overlayText);
+        }
+
+        function typeWriterOverlay(element, speed = 50) {
+            let text = element.textContent;
+            element.textContent = '';
+            element.style.opacity = '1';
+
+            let i = 0;
+            let interval = setInterval(() => {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(interval);
+                    element.classList.add('done');
+                    displayChoiceButtons(); // Show buttons after the text is done
+                }
+            }, speed);
+        }
+
+        function displayChoiceButtons() {
+            const buttons = document.querySelectorAll('.overlay-buttons button');
+            buttons.forEach(button => {
+                button.style.display = 'inline-block'; // Show the buttons
+            });
+        }
+
+        // Start the typewriter effect on the first paragraph
+        typeWriter(paragraphs[currentParagraph]);
+    </script>
+
+</body>
+</html>
